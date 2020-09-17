@@ -11,35 +11,34 @@ def knapsack_solver(items, capacity):
     value = []
     index = []
     kept = []
-    for item in items:
+    for item in items: #Take the items and put them into separate lists.
           dex, wt, v = item
           weight.append(wt)
           value.append(v)
           index.append(dex)
     n = len(items)
-    K = [[0 for x in range(capacity + 1)] for x in range(n+1)]
+    K = [[0 for x in range(capacity + 1)] for x in range(n+1)] #Generate a matrix for value storage.
     for i in range(n + 1):
       for w in range(capacity + 1):
-            if i == 0 or w == 0:
+            if i == 0 or w == 0: #Checks starting point
                 K[i][w] = 0
-            elif weight[i-1] <= w:
+            elif weight[i-1] <= w: #Compares the weight, finding 
                   K[i][w] = max(value[i-1] + K[i-1][w - weight[i-1]], K[i-1][w])
-                  #kept.append()
             else:
                   K[i][w] = K[i-1][w]
     res = K[n][capacity] #197 for small
     w = capacity
-    for i in range(n, 0, -1):
-      if res <= 0:
+    for i in range(n, 0, -1): #Walk backwards down the range
+      if res <= 0: #Added because it gave a few hanging loops
         break
-      if res == K[i-1][w]:
+      if res == K[i-1][w]: #Weights are lowering
         continue
-      else:
-        kept.append(index[i-1])
+      else: #Take the highest value item, save its index to a list, and lower the max value and capacity by appropriate values.
+        kept.append(index[i-1]) 
         res = res - value[i-1]
         w = w - weight[i-1]
-    kept.sort()
-    solution = {'Value': K[n][capacity], 'Chosen': kept}
+    kept.sort() #The kept list is backwards since we start with the highest value
+    solution = {'Value': K[n][capacity], 'Chosen': kept} #Put this into the format that the test wants.
     return solution
 
 
