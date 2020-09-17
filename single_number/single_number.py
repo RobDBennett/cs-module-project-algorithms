@@ -13,7 +13,12 @@ def single_number(arr):
             return x
 
     
+"""
 
+def single_number(arr):
+    return list(dict.fromkeys(arr))
+
+"""
 
 if __name__ == '__main__':
     # Use the main function to test your implementation
