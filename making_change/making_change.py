@@ -12,7 +12,7 @@ def making_change(amount, denominations):
 """
 from functools import lru_cache
 
-@lru_cache(maxsize= None)
+@lru_cache(maxsize=None)
 def making_change(amount, denominations):
   if amount < 0:
     return 0
